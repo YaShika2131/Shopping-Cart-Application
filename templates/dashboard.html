@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Welcome, {{ user['username'] }}</h2>
+    <p>Balance: ${{ user['balance'] }}</p>
+
+    <h3>Available Products</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product['name'] }}</td>
+                    <td>${{ product['price'] }}</td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" name="product_id" value="{{ product['id'] }}">
+                            <button type="submit" class="btn btn-success">Buy</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Transaction History</h3>
+    <ul>
+        {% for transaction in transactions %}
+            <li>{{ transaction }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
